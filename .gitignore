@@ -1,0 +1,17 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente
+.env
+
+# Configurações locais
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+
+# Logs
+*.log
+
+readme.md
