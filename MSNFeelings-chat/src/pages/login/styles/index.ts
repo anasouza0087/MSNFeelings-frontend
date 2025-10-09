@@ -4,6 +4,7 @@ interface IStyledLogoContainer {
   bg?: string;
 }
 
+//mudar para outra pasta para componentização
 export const StyledContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -62,6 +63,7 @@ export const StyledContainerInputs = styled.div`
   flex-direction: column;
 `;
 
+//mudar para outra pasta para componentização
 export const StyledInputLabelContainer = styled.div`
   margin: 8px 0px 8px 0px;
   width: 60%;
@@ -69,12 +71,15 @@ export const StyledInputLabelContainer = styled.div`
   flex-direction: column;
 `;
 
+//mudar para outra pasta para componentização
 export const StyledInput = styled.input`
   padding: 12px;
-  border: 0px none #fff;
+  border: 1px solid #b6b5c2;
   margin-top: 8px;
+  width: 100%;
 `;
 
+//mudar para outra pasta para componentização
 export const StyledButton = styled.button`
   background-color: #0078d7;
   color: #fff;

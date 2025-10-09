@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   StyledFormContainer,
   StyledInputFormContainer,
@@ -15,6 +16,12 @@ export const FormLoginRight = () => {
         <StyledInputFormContainer>
           <FormLoginTitleAndSubtitle />
           <FormLoginInputs />
+          <h4 style={{ color: "#b6b5c2", marginTop: 16 }}>
+            Don't you have an account?{" "}
+            <Link to={"/account"}>
+              <b style={{ color: "#0078d7", cursor: "pointer" }}>Sign Up</b>
+            </Link>
+          </h4>
         </StyledInputFormContainer>
       </StyledFormContainer>
     </StyledLogoContainer>
