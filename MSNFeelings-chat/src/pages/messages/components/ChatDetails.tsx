@@ -1,12 +1,12 @@
-import { IoClose } from "react-icons/io5";
-import { useChatContext } from "../context/useChatContext";
+import { IoClose } from "react-icons/io5"
+import { useChatContext } from "../context/useChatContext"
 
 interface IChatDetails {
-  setOpenDetails: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDetails: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const ChatDetails = ({ setOpenDetails }: IChatDetails) => {
-  const { chatroomDetails } = useChatContext();
+  const { chatroomDetails, onDeleteChatroom } = useChatContext()
   return (
     <div
       style={{
@@ -46,6 +46,13 @@ export const ChatDetails = ({ setOpenDetails }: IChatDetails) => {
       ></div>
       <h2>{chatroomDetails.name}</h2>
       <h5 style={{ cursor: "pointer" }}>Grupo - xxx membros</h5>
+
+      <div
+        style={{ width: "100%", textAlign: "center", cursor: "pointer" }}
+        onClick={() => onDeleteChatroom()}
+      >
+        <h3 style={{ color: "red", fontWeight: "bold" }}>Excluir Sala</h3>
+      </div>
     </div>
-  );
-};
+  )
+}
