@@ -19,6 +19,8 @@ export const Uploader = () => {
     setFile(selectedFile)
   }
 
+  console.log(file)
+
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <input
