@@ -1,23 +1,18 @@
-import { FaEllipsisV } from "react-icons/fa";
-import { useChatContext } from "../context/useChatContext";
-import { HiUserGroup } from "react-icons/hi";
-import { CiCircleRemove } from "react-icons/ci";
-import { useState } from "react";
-import { IoPersonAddSharp } from "react-icons/io5";
+import { FaEllipsisV } from "react-icons/fa"
+import { useChatContext } from "../context/useChatContext"
+import { HiUserGroup } from "react-icons/hi"
+import { CiCircleRemove } from "react-icons/ci"
+import { useState } from "react"
 
 interface IChatHeader {
-  openDetails: boolean;
-  setOpenDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenAddMember: React.Dispatch<React.SetStateAction<boolean>>;
+  openDetails: boolean
+  setOpenDetails: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenAddMember: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ChatHeader = ({
-  openDetails,
-  setOpenDetails,
-  setOpenAddMember,
-}: IChatHeader) => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const { chatroomDetails } = useChatContext();
+export const ChatHeader = ({ openDetails, setOpenDetails }: IChatHeader) => {
+  const [openMenu, setOpenMenu] = useState(false)
+  const { chatroomDetails } = useChatContext()
 
   return (
     <div
@@ -76,7 +71,7 @@ export const ChatHeader = ({
                 padding: 8,
                 zIndex: 80,
                 opacity: 0.8,
-                height: 100,
+                height: 70,
               }}
             >
               <span
@@ -85,31 +80,15 @@ export const ChatHeader = ({
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
-                  // marginBottom: 12,
                   cursor: "pointer",
-
                 }}
                 onClick={() => {
-                  setOpenDetails(!openDetails);
-                  setOpenMenu(false);
+                  setOpenDetails(!openDetails)
+                  setOpenMenu(false)
                 }}
               >
                 <HiUserGroup fontSize={20} />
-                <i style={{ marginLeft: 12 }}>Detalhes do Grupo</i>
-              </span>
-
-              <span
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => setOpenAddMember(true)}
-              >
-                <IoPersonAddSharp fontSize={18} />
-                <i style={{ marginLeft: 12 }}>Adicionar novo membro</i>
+                <i style={{ marginLeft: 12 }}>Detalhes da Conversa</i>
               </span>
 
               <span
@@ -122,15 +101,12 @@ export const ChatHeader = ({
                 }}
               >
                 <CiCircleRemove fontSize={20} />
-                <i style={{ marginLeft: 12 }}>Sair do Grupo</i>
+                <i style={{ marginLeft: 12 }}>Excluir Conversa</i>
               </span>
             </div>
           )}
         </div>
       </div>
-      <p style={{ fontStyle: "italic", padding: 8 }}>
-        chiquinha, chaves, nhonho
-      </p>
     </div>
-  );
-};
+  )
+}

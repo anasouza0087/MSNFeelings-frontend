@@ -1,23 +1,21 @@
-import { useState } from "react"
-import {
-  StyledButton,
-  StyledContainer,
-  StyledInput,
-  StyledInputLabelContainer,
-} from "../login/styles"
-import { useAccount } from "./hooks/useAccount"
-import type { IAccount } from "./types"
-import { Button, Input, Uploader } from "../../ui"
+// import { useState } from "react"
+// import type { IAccount } from "../../types"
+// import { useAccount } from "../../hook/useAccount"
+import { Button, Input, Uploader } from "../../../../ui"
 
-export const Account = () => {
-  const [account, setAccount] = useState<IAccount>({
-    name: "",
-    nickname: "",
-    password: "",
-    email: "",
-  })
+interface createUserTypes {
+  isLogin: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const { createAccount } = useAccount()
+export const CreateUser = ({ isLogin }: createUserTypes) => {
+  // const [account, setAccount] = useState<IAccount>({
+  //   name: "",
+  //   nickname: "",
+  //   password: "",
+  //   email: "",
+  // })
+
+  // const { createAccount } = useAccount()
   return (
     // <StyledContainer>
     //   <div
@@ -89,51 +87,61 @@ export const Account = () => {
     //     </div>
     //   </div>
     // </StyledContainer>
+    // <div
+    //   style={{
+    //     width: "100vw",
+    //     height: "100vh",
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //   }}
+    // >
     <div
       style={{
-        width: "100vw",
-        height: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        // borderRadius: 14,
+        // backgroundColor: "#cfdfef",
+        // width: 500,
+        height: 600,
+        // padding: 40,
       }}
     >
-      <div
+      <h2>Create your account</h2>
+      <Uploader />
+      <section
         style={{
+          width: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          borderRadius: 14,
-          backgroundColor: "#cfdfef",
-          width: 500,
-          height: 600,
-          padding: 40,
+          justifyContent: "center",
+          // alignContent: "center",
+          alignItems: "flex-start",
+          gap: 10,
         }}
       >
-        <h2>Create your account</h2>
-        <Uploader />
-        <section
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
-            gap: 10,
-          }}
+        <Input label="Nome" onChange={() => null} />
+        <Input label="Login" onChange={() => null} />
+        <Input label="E-Mail" onChange={() => null} />
+        <Input label="Senha" onChange={() => null} />
+      </section>
+      <section style={{ width: "100%" }}>
+        <Button label="Sign Up" onClick={() => null} />
+      </section>
+      <h4>
+        Já tem uma conta?{" "}
+        <b
+          style={{ color: "#3686de", cursor: "pointer" }}
+          onClick={() => isLogin(true)}
         >
-          <Input label="Nome" />
-          <Input label="Login" />
-          <Input label="E-Mail" />
-          <Input label="Senha" />
-        </section>
-        <section>
-          <Button label="Sign Up" onClick={() => null} />
-        </section>
-      </div>
+          Faça login
+        </b>
+        .
+      </h4>
     </div>
+    //div>
   )
 }

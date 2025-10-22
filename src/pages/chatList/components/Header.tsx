@@ -1,7 +1,8 @@
-import { FaSearch } from "react-icons/fa";
-import { IoIosAddCircle } from "react-icons/io";
-import { useChatListContext } from "../context/useChatListContext";
-import { useState } from "react";
+import { FaSearch } from "react-icons/fa"
+import { IoIosAddCircle } from "react-icons/io"
+import { useChatListContext } from "../context/useChatListContext"
+import { useState } from "react"
+import { RiWechatFill } from "react-icons/ri"
 
 export const Header = () => {
   const {
@@ -9,8 +10,8 @@ export const Header = () => {
     onFilterChatrooms,
     onListChatrooms,
     setIsFilter,
-  } = useChatListContext();
-  const [chatroom, setChatroom] = useState({ name: "" });
+  } = useChatListContext()
+  const [chatroom, setChatroom] = useState({ name: "" })
   return (
     <div
       style={{
@@ -43,15 +44,16 @@ export const Header = () => {
           <FaSearch
             fontSize={20}
             onClick={() => {
-              setIsFilter(true);
-              onFilterChatrooms(chatroom.name);
+              setIsFilter(true)
+              onFilterChatrooms(chatroom.name)
             }}
+            color="#0078d7"
           />
         </button>
         <button onClick={() => setOpenCreateChatModal(true)}>
-          <IoIosAddCircle fontSize={30} />
+          <RiWechatFill fontSize={30} color="#0078d7" />
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,9 +1,20 @@
 import { StyledInput } from "./styles"
 
 interface InputTypes {
-  label: string
+  label?: string
+  placeholder?: string
+  onChange: (event: any) => void
+  type?: InputType
 }
 
-export const Input = ({ label }: InputTypes) => {
-  return <StyledInput onChange={() => null} />
+type InputType = "password" | "text"
+
+export const Input = ({ label, placeholder, onChange, type }: InputTypes) => {
+  return (
+    <StyledInput
+      onChange={onChange}
+      type={type ?? "text"}
+      placeholder={placeholder}
+    />
+  )
 }

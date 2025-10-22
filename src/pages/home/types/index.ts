@@ -1,3 +1,8 @@
+export interface ILoginCredentials {
+  email: string;
+  password: string;
+}
+
 export interface IAccount {
   _id?: string;
   name: string;
@@ -5,3 +10,4 @@ export interface IAccount {
   password: string;
   email: string;
 }
+

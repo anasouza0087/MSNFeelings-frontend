@@ -1,4 +1,4 @@
-import { StyledTitle, StyleSubtitle } from "../styles";
+import { StyledTitle, StyleSubtitle } from "../../styles"
 
 export const FormLoginTitleAndSubtitle = () => {
   return (
@@ -8,5 +8,5 @@ export const FormLoginTitleAndSubtitle = () => {
         Enter your login and password to start or continue a conversation!
       </StyleSubtitle>
     </>
-  );
-};
+  )
+}

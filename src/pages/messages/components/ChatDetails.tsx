@@ -33,7 +33,7 @@ export const ChatDetails = ({ setOpenDetails }: IChatDetails) => {
           onClick={() => setOpenDetails(false)}
           cursor={"pointer"}
         />
-        <h3 style={{ marginLeft: 20 }}>Detalhes do Grupo</h3>
+        <h3 style={{ marginLeft: 20 }}>Detalhes da conversa</h3>
       </div>
       <div
         style={{
@@ -45,13 +45,12 @@ export const ChatDetails = ({ setOpenDetails }: IChatDetails) => {
         }}
       ></div>
       <h2>{chatroomDetails.name}</h2>
-      <h5 style={{ cursor: "pointer" }}>Grupo - xxx membros</h5>
 
       <div
         style={{ width: "100%", textAlign: "center", cursor: "pointer" }}
         onClick={() => onDeleteChatroom()}
       >
-        <h3 style={{ color: "red", fontWeight: "bold" }}>Excluir Sala</h3>
+        <h3 style={{ color: "red", fontWeight: "bold" }}>Excluir Conversa</h3>
       </div>
     </div>
   )
