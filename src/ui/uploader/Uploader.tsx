@@ -1,31 +1,52 @@
-import { useState, useEffect } from "react"
 import { FaCameraRetro } from "react-icons/fa"
-import { MdDelete, MdFileUpload } from "react-icons/md"
+import { MdDelete } from "react-icons/md"
+import { useUploader } from "./useUploader.hook"
+import { useEffect } from "react"
 
-export const Uploader = () => {
-  const [file, setFile] = useState<File | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
+interface UploaderProps {
+  onChange?: (fileUrl: string | null) => void
+}
 
-  // Detecta tamanho da tela
+export const Uploader = ({ onChange }: UploaderProps) => {
+  const {
+    // file,
+    setFile,
+    preview,
+    uploadedUrl,
+    isUploading,
+    uploadFile,
+    removeFile,
+  } = useUploader()
+
+  // Atualiza form pai quando a URL do arquivo é obtida
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 600)
-    handleResize() // roda na montagem
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    onChange?.(uploadedUrl || null)
+  }, [uploadedUrl])
 
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // debugger
     const selectedFile = event.target.files?.[0] || null
-    setFile(selectedFile)
+    if (selectedFile) {
+      setFile(selectedFile)
+      await uploadFile(selectedFile)
+    }
   }
 
-  console.log(file)
-
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
+    >
       <input
         type="file"
         id="fileInput"
+        accept="image/*"
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
@@ -33,7 +54,7 @@ export const Uploader = () => {
       <label
         htmlFor="fileInput"
         style={{
-          backgroundColor: "#a6abb1",
+          backgroundColor: preview ? "transparent" : "#a6abb1",
           color: "#fff",
           cursor: "pointer",
           display: "flex",
@@ -42,56 +63,53 @@ export const Uploader = () => {
           borderRadius: "100%",
           fontWeight: "bold",
           fontSize: 16,
-          padding: isMobile ? 8 : "8px 16px",
           height: 80,
           width: 80,
-          gap: 8,
+          overflow: "hidden",
+          position: "relative",
         }}
       >
-        {file ? (
-          isMobile ? (
-            <MdDelete
-              fontSize={24}
-              onClick={(e) => {
-                e.preventDefault()
-                setFile(null)
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span
-                style={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  maxWidth: 120,
-                }}
-              >
-                {file.name}
-              </span>
-              <MdDelete
-                fontSize={20}
-                onClick={(e) => {
-                  e.preventDefault()
-                  setFile(null)
-                }}
-              />
-            </div>
-          )
-        ) : isMobile ? (
-          <MdFileUpload fontSize={24} />
+        {preview ? (
+          <img
+            src={preview}
+            alt="Preview"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "100%",
+              opacity: isUploading ? 0.5 : 1,
+            }}
+          />
         ) : (
           <FaCameraRetro fontSize={40} />
         )}
       </label>
+
+      {preview && (
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            removeFile()
+          }}
+          style={{
+            position: "absolute",
+            top: -5,
+            right: -5,
+            background: "#ff4d4d",
+            border: "none",
+            borderRadius: "50%",
+            color: "white",
+            cursor: "pointer",
+            padding: 4,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MdDelete fontSize={20} />
+        </button>
+      )}
     </div>
   )
 }

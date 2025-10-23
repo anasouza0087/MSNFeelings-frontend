@@ -1,6 +1,6 @@
 export interface ICreateAccount {
   name: string;
-  nickname: string | number;
+  avatar?: string;
   password: string;
   email: string;
 }

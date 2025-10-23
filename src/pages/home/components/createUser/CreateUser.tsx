@@ -1,6 +1,4 @@
-// import { useState } from "react"
-// import type { IAccount } from "../../types"
-// import { useAccount } from "../../hook/useAccount"
+import { useAccount } from "../../hook/useAccount"
 import { Button, Input, Uploader } from "../../../../ui"
 
 interface createUserTypes {
@@ -8,15 +6,8 @@ interface createUserTypes {
 }
 
 export const CreateUser = ({ isLogin }: createUserTypes) => {
-  // const [account, setAccount] = useState<IAccount>({
-  //   avatar: "",
-  //   name: "",
-  //   nickname: "",
-  //   password: "",
-  //   email: "",
-  // })
+  const { createAccount, handleChangeUser } = useAccount()
 
-  // const { createAccount } = useAccount()
   return (
     <div
       style={{
@@ -32,7 +23,7 @@ export const CreateUser = ({ isLogin }: createUserTypes) => {
       }}
     >
       <h2>Create your account</h2>
-      <Uploader />
+      <Uploader onChange={(mediaUrl) => handleChangeUser("avatar", mediaUrl)} />
       <section
         style={{
           width: "100%",
@@ -45,22 +36,22 @@ export const CreateUser = ({ isLogin }: createUserTypes) => {
       >
         <Input
           label="Nome"
-          onChange={() => null}
+          onChange={(e) => handleChangeUser("name", e.target.value)}
           placeholder="Insira seu Nome"
         />
         <Input
           label="E-Mail"
-          onChange={() => null}
+          onChange={(e) => handleChangeUser("email", e.target.value)}
           placeholder="Insira um e-mail válido"
         />
         <Input
           label="Senha"
-          onChange={() => null}
+          onChange={(e) => handleChangeUser("password", e.target.value)}
           placeholder="Insira sua senha"
         />
       </section>
       <section style={{ width: "100%" }}>
-        <Button label="Sign Up" onClick={() => null} />
+        <Button label="Sign Up" onClick={createAccount} />
       </section>
       <h4>
         Já tem uma conta?{" "}
