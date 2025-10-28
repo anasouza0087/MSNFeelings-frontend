@@ -2,6 +2,7 @@ import React, { createContext, useContext, type ReactNode } from "react"
 import { useChatList } from "../hooks/useChatList"
 import type { IChatroom } from "../../../services/chatroom/types"
 import type { IMessage } from "../../../services/messages/types"
+import { useUsers } from "../hooks/useUsers"
 
 type IChatList = {
   openCreateChatModal: boolean
@@ -15,6 +16,8 @@ type IChatList = {
   onFilterChatrooms: (chatroomName: string) => void
   setIsFilter: React.Dispatch<React.SetStateAction<boolean>>
   isLoading: boolean
+  listUsers: (params: any) => Promise<any>
+  users: any[]
 }
 
 const chatListContext = createContext<IChatList | undefined>(undefined)
@@ -31,6 +34,9 @@ export const ChatListProvider = ({ children }: { children: ReactNode }) => {
     setIsFilter,
     isLoading,
   } = useChatList()
+
+  const { listUsers, users } = useUsers()
+
   return (
     <chatListContext.Provider
       value={{
@@ -43,6 +49,8 @@ export const ChatListProvider = ({ children }: { children: ReactNode }) => {
         hasMore,
         setIsFilter,
         isLoading,
+        listUsers,
+        users,
       }}
     >
       {children}

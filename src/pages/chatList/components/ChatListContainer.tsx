@@ -12,9 +12,12 @@ export const ChatListContainer = () => {
     setOpenCreateChatModal,
     onCreateChatroom,
     onListChatrooms,
+    listUsers,
+    users,
   } = useChatListContext()
 
   const [chatroom, setChatroom] = useState<IChatroom>({ name: "" })
+  const [filter, setFilter] = useState("")
 
   return (
     <>
@@ -42,10 +45,13 @@ export const ChatListContainer = () => {
               }}
             >
               <Input
-                onChange={() => null}
-                placeholder="Nome, login ou e-mail"
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="Nome ou E-Mail"
               />
-              <RiUserSearchFill onClick={() => null} fontSize={30} />
+              <RiUserSearchFill
+                onClick={() => listUsers(filter)}
+                fontSize={30}
+              />
             </div>
             <div
               style={{
@@ -56,23 +62,41 @@ export const ChatListContainer = () => {
               }}
             >
               Selecione um contato:
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  gap: 20,
-                  padding: 8,
-                }}
-              >
-                <HiUserPlus fontSize={24} color="green" />
-                <span style={{ color: "grey" }}>fulano de tal</span>
-              </div>
+              {users?.map((user) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      gap: 20,
+                      padding: 8,
+                    }}
+                  >
+                    <HiUserPlus fontSize={24} color="green" />
+                    <span style={{ color: "grey" }}>{user?.name}</span>
+
+                    <img
+                      src={user?.avatar}
+                      alt="avatar"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        border: "2px solid #ccc",
+                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                      }}
+                    />
+                  </div>
+                )
+              })}
             </div>
             <div>
               Mensagem (opcional)
-              <Input onChange={() => null} placeholder="Digite uma mensagem " />
+              <Input onChange={() => null} placeholder="Digite ua mensagem " />
             </div>
           </div>
         </Modal>
