@@ -1,10 +1,12 @@
 import { useState } from "react"
-import { Button, Input, Modal } from "../../../ui"
+import { Input, Modal } from "../../../ui"
 import { useChatListContext } from "../context/useChatListContext"
 import type { IChatroom } from "../../../services/chatroom/types"
 import { List } from "./List"
 import { HiUserPlus } from "react-icons/hi2"
 import { RiUserSearchFill } from "react-icons/ri"
+
+import { faker } from "@faker-js/faker"
 
 export const ChatListContainer = () => {
   const {
@@ -16,7 +18,14 @@ export const ChatListContainer = () => {
     users,
   } = useChatListContext()
 
-  const [chatroom, setChatroom] = useState<IChatroom>({ name: "" })
+  const [chatroom, setChatroom] = useState<IChatroom>({
+    user: {
+      id: "",
+      name: "",
+      avatar: "",
+    },
+    message: "",
+  })
   const [filter, setFilter] = useState("")
 
   return (
@@ -27,7 +36,10 @@ export const ChatListContainer = () => {
           onClose={() => setOpenCreateChatModal(false)}
           onSave={() =>
             onCreateChatroom(chatroom).then(() => {
-              setChatroom({ name: "" })
+              setChatroom({
+                user: { id: "", name: "", avatar: "" },
+                message: "",
+              })
               onListChatrooms()
             })
           }
@@ -74,29 +86,70 @@ export const ChatListContainer = () => {
                       padding: 8,
                     }}
                   >
-                    <HiUserPlus fontSize={24} color="green" />
+                    <HiUserPlus
+                      fontSize={24}
+                      color="green"
+                      onClick={() =>
+                        setChatroom({
+                          ...chatroom,
+                          user: {
+                            id: user._id,
+                            name: user.name,
+                            avatar: user?.avatar ?? "",
+                          },
+                        })
+                      }
+                    />
                     <span style={{ color: "grey" }}>{user?.name}</span>
 
-                    <img
-                      src={user?.avatar}
-                      alt="avatar"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        border: "2px solid #ccc",
-                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
-                      }}
-                    />
+                    {user?.avatar ? (
+                      <img
+                        src={user?.avatar}
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          border: "2px solid #ccc",
+                          boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        style={{
+                          width: 40,
+                          height: 40,
+                          borderRadius: "50%",
+                          border: "2px solid #ccc",
+                          boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          fontWeight: "bold",
+                          color: "#fff",
+                          backgroundColor: faker.color.rgb({ format: "css" }),
+                        }}
+                      >
+                        {user?.name.split("")?.[0]?.toUpperCase()}
+                      </div>
+                    )}
                   </div>
                 )
               })}
             </div>
             <div>
               Mensagem (opcional)
-              <Input onChange={() => null} placeholder="Digite ua mensagem " />
+              <Input
+                onChange={(e) =>
+                  setChatroom({
+                    ...chatroom,
+                    message: e.target.value,
+                  })
+                }
+                value={chatroom?.message}
+                placeholder="Digite ua mensagem "
+              />
             </div>
           </div>
         </Modal>

@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker"
 import { Skeleton } from "../../../ui"
 import { useMsnFeelingsContext } from "../../shared/context/useMsnFeelingsContext"
 import { useChatListContext } from "../context/useChatListContext"
@@ -20,9 +21,14 @@ export const List = () => {
         overflowY: "auto",
         overflowX: "hidden",
         padding: 20,
+        position: "relative",
       }}
     >
-      <Header />
+      <div
+        style={{ position: "sticky", top: 0, zIndex: 10, background: "#fff" }}
+      >
+        <Header />
+      </div>
       {chatrooms?.map((chatroom, idx) => (
         <div
           key={idx}
@@ -57,14 +63,46 @@ export const List = () => {
                 alignItems: "center",
               }}
             >
-              <div
+              {/* <div
                 style={{
                   width: 50,
                   height: 50,
                   backgroundColor: "yellow",
                   borderRadius: "100%",
                 }}
-              ></div>
+              ></div> */}
+              {chatroom?.user?.avatar ? (
+                <img
+                  src={chatroom?.user?.avatar}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    border: "2px solid #ccc",
+                    boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    border: "2px solid #ccc",
+                    boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                    color: "#fff",
+                    backgroundColor: faker.color.rgb({ format: "css" }),
+                  }}
+                >
+                  {chatroom?.user?.name.split("")?.[0]?.toUpperCase()}
+                </div>
+              )}
               <h4
                 style={{
                   fontWeight: "bold",
@@ -73,7 +111,7 @@ export const List = () => {
                   marginLeft: 20,
                 }}
               >
-                {chatroom?.name}
+                {chatroom?.user?.name ?? "Usuário desconhecido"}
               </h4>
             </div>
             <span>3m</span>

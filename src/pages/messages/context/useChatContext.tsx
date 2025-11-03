@@ -5,7 +5,10 @@ import { useChatMessages } from "../hooks/useChatMessages"
 type IChat = {
   chatroomMessages: any[]
   onCreateMessage: (message: IMessage) => void
-  chatroomDetails: { _id: string; name: string }
+  chatroomDetails: {
+    _id: string
+    user: { id: string; name: string; avatar: string }
+  }
   onDeleteChatroom: () => void
 }
 

@@ -13,8 +13,8 @@ export const useChatMessages = () => {
   const [chatroomMessages, setChatroomMessages] = useState<any[]>([])
   const [chatroomDetails, setChatroomDetails] = useState<{
     _id: string
-    name: string
-  }>({ _id: "", name: "" })
+    user: { id: string; name: string; avatar: string }
+  }>({ _id: "", user: { id: "", name: "", avatar: "" } })
   const { chatroomSelected } = useMsnFeelingsContext()
 
   const onListMessages = async () => {

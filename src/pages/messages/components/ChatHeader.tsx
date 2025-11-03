@@ -3,6 +3,7 @@ import { useChatContext } from "../context/useChatContext"
 import { HiUserGroup } from "react-icons/hi"
 import { CiCircleRemove } from "react-icons/ci"
 import { useState } from "react"
+import { faker } from "@faker-js/faker"
 
 interface IChatHeader {
   openDetails: boolean
@@ -40,15 +41,40 @@ export const ChatHeader = ({ openDetails, setOpenDetails }: IChatHeader) => {
             cursor: "pointer",
           }}
         >
-          <span
-            style={{
-              width: 30,
-              height: 30,
-              border: "1px solid #000",
-              borderRadius: "100%",
-            }}
-          />
-          <b style={{ marginLeft: 8 }}>{chatroomDetails?.name}</b>
+          {chatroomDetails?.user?.avatar ? (
+            <img
+              src={chatroomDetails?.user?.avatar}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                objectFit: "cover",
+                objectPosition: "center",
+                border: "2px solid #ccc",
+                boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                border: "2px solid #ccc",
+                boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontWeight: "bold",
+                color: "#fff",
+                backgroundColor: faker.color.rgb({ format: "css" }),
+              }}
+            >
+              {chatroomDetails?.user?.name.split("")?.[0]?.toUpperCase()}
+            </div>
+          )}
+
+          <b style={{ marginLeft: 8 }}>{chatroomDetails?.user?.name}</b>
         </div>
         <div style={{ position: "relative" }}>
           <FaEllipsisV
