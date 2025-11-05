@@ -1,4 +1,4 @@
-import React, { createContext, useContext, type ReactNode } from "react"
+import { createContext, useContext, type ReactNode } from "react"
 import type { IMessage } from "../../../services/messages/types"
 import { useChatMessages } from "../hooks/useChatMessages"
 
@@ -7,7 +7,9 @@ type IChat = {
   onCreateMessage: (message: IMessage) => void
   chatroomDetails: {
     _id: string
-    user: { id: string; name: string; avatar: string }
+    // user: { id: string; name: string; avatar: string }
+    participants: { id: string; name: string; avatar: string }[]
+    message?: string
   }
   onDeleteChatroom: () => void
 }

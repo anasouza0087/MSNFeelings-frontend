@@ -16,6 +16,7 @@ type IChatList = {
   onFilterChatrooms: (chatroomName: string) => void
   setIsFilter: React.Dispatch<React.SetStateAction<boolean>>
   isLoading: boolean
+  setIsLoading: any
   listUsers: (params: any) => Promise<any>
   users: any[]
 }
@@ -33,6 +34,7 @@ export const ChatListProvider = ({ children }: { children: ReactNode }) => {
     onFilterChatrooms,
     setIsFilter,
     isLoading,
+    setIsLoading,
   } = useChatList()
 
   const { listUsers, users } = useUsers()
@@ -49,6 +51,7 @@ export const ChatListProvider = ({ children }: { children: ReactNode }) => {
         hasMore,
         setIsFilter,
         isLoading,
+        setIsLoading,
         listUsers,
         users,
       }}

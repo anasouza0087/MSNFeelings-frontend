@@ -1,10 +1,10 @@
-import { useChatContext } from "../context/useChatContext";
+import { useChatContext } from "../context/useChatContext"
 
 export const ChatMessages = () => {
-  const { chatroomMessages } = useChatContext();
+  const { chatroomMessages, chatroomDetails } = useChatContext()
 
   const handleSenderBubble = (chatMessage) => {
-    const date = new Date(chatMessage?.createdAt);
+    const date = new Date(chatMessage?.createdAt)
     const formattedDate = `${String(date?.getDate())?.padStart(
       2,
       "0"
@@ -14,7 +14,7 @@ export const ChatMessages = () => {
     )}/${date?.getFullYear()} ${String(date?.getHours())?.padStart(
       2,
       "0"
-    )}:${String(date?.getMinutes())?.padStart(2, "0")}`;
+    )}:${String(date?.getMinutes())?.padStart(2, "0")}`
 
     return (
       <div
@@ -44,8 +44,8 @@ export const ChatMessages = () => {
           {formattedDate}
         </span>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -59,6 +59,21 @@ export const ChatMessages = () => {
         overflowX: "hidden",
       }}
     >
+      {chatroomDetails?.message && (
+        <div
+          style={{
+            width: 360,
+            minHeight: 80,
+            backgroundColor: "blue",
+            color: "#fff",
+            borderRadius: 20,
+            padding: 10,
+            position: "relative",
+          }}
+        >
+          {chatroomDetails?.message}
+        </div>
+      )}
       {chatroomMessages?.map((chatroomMessage) => {
         return (
           <div
@@ -72,8 +87,8 @@ export const ChatMessages = () => {
           >
             {handleSenderBubble(chatroomMessage)}
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}

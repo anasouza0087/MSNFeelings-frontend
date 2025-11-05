@@ -16,16 +16,14 @@ export const ChatListContainer = () => {
     onListChatrooms,
     listUsers,
     users,
+    setIsLoading,
   } = useChatListContext()
 
   const [chatroom, setChatroom] = useState<IChatroom>({
-    user: {
-      id: "",
-      name: "",
-      avatar: "",
-    },
+    participants: [],
     message: "",
   })
+
   const [filter, setFilter] = useState("")
 
   return (
@@ -37,10 +35,9 @@ export const ChatListContainer = () => {
           onSave={() =>
             onCreateChatroom(chatroom).then(() => {
               setChatroom({
-                user: { id: "", name: "", avatar: "" },
+                participants: [],
                 message: "",
               })
-              onListChatrooms()
             })
           }
         >
@@ -88,15 +85,24 @@ export const ChatListContainer = () => {
                   >
                     <HiUserPlus
                       fontSize={24}
-                      color="green"
+                      color={
+                        chatroom?.participants?.length > 0 ? "red" : "green"
+                      }
                       onClick={() =>
                         setChatroom({
                           ...chatroom,
-                          user: {
-                            id: user._id,
-                            name: user.name,
-                            avatar: user?.avatar ?? "",
-                          },
+                          participants: [
+                            {
+                              id: user._id,
+                              name: user.name,
+                              avatar: user?.avatar ?? "",
+                            },
+                            {
+                              id: "68759721b0c74a9c173b38ae",
+                              name: "admin",
+                              avatar: "",
+                            },
+                          ],
                         })
                       }
                     />

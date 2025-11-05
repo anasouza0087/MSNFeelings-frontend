@@ -1,4 +1,8 @@
 import { faker } from "@faker-js/faker"
+import moment from "moment"
+// @ts-expect-error ignore Moment TS error
+import "moment/dist/locale/pt-br.js"
+
 import { Skeleton } from "../../../ui"
 import { useMsnFeelingsContext } from "../../shared/context/useMsnFeelingsContext"
 import { useChatListContext } from "../context/useChatListContext"
@@ -8,6 +12,10 @@ export const List = () => {
   const { chatrooms, isLoading } = useChatListContext()
 
   const { setChatroomSelected, chatroomSelected } = useMsnFeelingsContext()
+
+  const MessageTime = (updatedAt: string) => {
+    return <span>{moment(updatedAt).locale("pt-br").fromNow()}</span>
+  }
 
   return (
     <div
@@ -71,9 +79,15 @@ export const List = () => {
                   borderRadius: "100%",
                 }}
               ></div> */}
-              {chatroom?.user?.avatar ? (
+              {chatroom?.participants?.find(
+                (x) => x.id !== "68759721b0c74a9c173b38ae"
+              )?.avatar ? (
                 <img
-                  src={chatroom?.user?.avatar}
+                  src={
+                    chatroom?.participants?.find(
+                      (x) => x.id !== "68759721b0c74a9c173b38ae"
+                    )?.avatar
+                  }
                   style={{
                     width: 40,
                     height: 40,
@@ -100,7 +114,12 @@ export const List = () => {
                     backgroundColor: faker.color.rgb({ format: "css" }),
                   }}
                 >
-                  {chatroom?.user?.name.split("")?.[0]?.toUpperCase()}
+                  {/* {chatroom?.user?.name.split("")?.[0]?.toUpperCase()} */}
+
+                  {chatroom?.participants
+                    ?.find((x) => x.id !== "68759721b0c74a9c173b38ae")
+                    ?.name.split("")?.[0]
+                    ?.toUpperCase()}
                 </div>
               )}
               <h4
@@ -111,10 +130,12 @@ export const List = () => {
                   marginLeft: 20,
                 }}
               >
-                {chatroom?.user?.name ?? "Usuário desconhecido"}
+                {chatroom?.participants?.find(
+                  (x) => x.id !== "68759721b0c74a9c173b38ae"
+                )?.name ?? "Usuário desconhecido"}
               </h4>
             </div>
-            <span>3m</span>
+            <span>{MessageTime(chatroom?.updatedAt)}</span>
           </div>
 
           <div
@@ -134,7 +155,7 @@ export const List = () => {
                 width: "90%",
               }}
             >
-              Prévia da última mensagem...
+              {chatroom?.message}
             </p>
             <div
               style={{

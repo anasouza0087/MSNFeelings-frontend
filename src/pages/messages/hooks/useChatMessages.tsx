@@ -13,8 +13,8 @@ export const useChatMessages = () => {
   const [chatroomMessages, setChatroomMessages] = useState<any[]>([])
   const [chatroomDetails, setChatroomDetails] = useState<{
     _id: string
-    user: { id: string; name: string; avatar: string }
-  }>({ _id: "", user: { id: "", name: "", avatar: "" } })
+    participants: { id: string; name: string; avatar: string }[]
+  }>({ _id: "", participants: [] })
   const { chatroomSelected } = useMsnFeelingsContext()
 
   const onListMessages = async () => {
@@ -29,7 +29,7 @@ export const useChatMessages = () => {
 
   const onGetChatroomDetails = async () => {
     await getChatroomById(chatroomSelected).then((resp) => {
-      setChatroomDetails(resp?.data?.[0])
+      setChatroomDetails(resp?.data)
     })
   }
 

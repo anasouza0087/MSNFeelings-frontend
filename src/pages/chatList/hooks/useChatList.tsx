@@ -14,9 +14,9 @@ export const useChatList = () => {
   const onCreateChatroom = (body: IChatroom) => {
     createChatroomService(body).then((resp: any) => {
       setOpenCreateChatModal(false)
+      setIsLoading(true)
     })
   }
-
   const onListChatrooms = useCallback(async () => {
     if (!hasMore || isLoading || isFilter) return
 
@@ -69,5 +69,6 @@ export const useChatList = () => {
     onFilterChatrooms,
     setIsFilter,
     isLoading,
+    setIsLoading,
   }
 }

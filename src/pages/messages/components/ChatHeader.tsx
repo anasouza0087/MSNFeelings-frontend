@@ -15,6 +15,8 @@ export const ChatHeader = ({ openDetails, setOpenDetails }: IChatHeader) => {
   const [openMenu, setOpenMenu] = useState(false)
   const { chatroomDetails } = useChatContext()
 
+  console.log(chatroomDetails)
+
   return (
     <div
       style={{
@@ -41,9 +43,15 @@ export const ChatHeader = ({ openDetails, setOpenDetails }: IChatHeader) => {
             cursor: "pointer",
           }}
         >
-          {chatroomDetails?.user?.avatar ? (
+          {chatroomDetails?.participants?.find(
+            (x) => x.id !== "68759721b0c74a9c173b38ae"
+          )?.avatar ? (
             <img
-              src={chatroomDetails?.user?.avatar}
+              src={
+                chatroomDetails?.participants?.find(
+                  (x) => x.id !== "68759721b0c74a9c173b38ae"
+                )?.avatar
+              }
               style={{
                 width: 40,
                 height: 40,
@@ -70,11 +78,22 @@ export const ChatHeader = ({ openDetails, setOpenDetails }: IChatHeader) => {
                 backgroundColor: faker.color.rgb({ format: "css" }),
               }}
             >
-              {chatroomDetails?.user?.name.split("")?.[0]?.toUpperCase()}
+              {/* {chatroomDetails?.user?.name.split("")?.[0]?.toUpperCase()} */}
+              {chatroomDetails?.participants
+                ?.find((x) => x.id !== "68759721b0c74a9c173b38ae")
+                ?.name.split("")?.[0]
+                ?.toUpperCase()}
             </div>
           )}
 
-          <b style={{ marginLeft: 8 }}>{chatroomDetails?.user?.name}</b>
+          <b style={{ marginLeft: 8 }}>
+            {" "}
+            {
+              chatroomDetails?.participants?.find(
+                (x) => x.id !== "68759721b0c74a9c173b38ae"
+              )?.name
+            }
+          </b>
         </div>
         <div style={{ position: "relative" }}>
           <FaEllipsisV

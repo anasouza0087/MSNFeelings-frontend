@@ -6,7 +6,8 @@ export const createChatroomService = (body: IChatroom) => {
 }
 
 export const listChatroomsService = (page?: number, filter?: string) => {
-  let url = `http://localhost:5000/chatroom?limit=10`
+  const userId = "68759721b0c74a9c173b38ae"
+  let url = `http://localhost:5000/chatroom?limit=10&userId=${userId}`
   if (filter) url += `&name=${filter}`
   else if (page) url += `&page=${page}`
   return axios.get(url)
