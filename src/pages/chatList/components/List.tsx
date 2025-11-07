@@ -11,7 +11,8 @@ import { Header } from "./Header"
 export const List = () => {
   const { chatrooms, isLoading } = useChatListContext()
 
-  const { setChatroomSelected, chatroomSelected } = useMsnFeelingsContext()
+  const { setChatroomSelected, chatroomSelected, onReadMessages } =
+    useMsnFeelingsContext()
 
   const MessageTime = (updatedAt: string) => {
     return <span>{moment(updatedAt).locale("pt-br").fromNow()}</span>
@@ -29,7 +30,6 @@ export const List = () => {
         overflowY: "auto",
         overflowX: "hidden",
         padding: 20,
-        position: "relative",
       }}
     >
       <div
@@ -49,9 +49,11 @@ export const List = () => {
             height: 140,
             backgroundColor:
               chatroom._id === chatroomSelected ? "	#eeeeee" : "#fff",
+            position: "relative",
           }}
           onClick={() => {
             setChatroomSelected(chatroom._id)
+            onReadMessages(chatroom._id)
           }}
         >
           <div
@@ -71,14 +73,6 @@ export const List = () => {
                 alignItems: "center",
               }}
             >
-              {/* <div
-                style={{
-                  width: 50,
-                  height: 50,
-                  backgroundColor: "yellow",
-                  borderRadius: "100%",
-                }}
-              ></div> */}
               {chatroom?.participants?.find(
                 (x) => x.id !== "68759721b0c74a9c173b38ae"
               )?.avatar ? (
@@ -114,8 +108,6 @@ export const List = () => {
                     backgroundColor: faker.color.rgb({ format: "css" }),
                   }}
                 >
-                  {/* {chatroom?.user?.name.split("")?.[0]?.toUpperCase()} */}
-
                   {chatroom?.participants
                     ?.find((x) => x.id !== "68759721b0c74a9c173b38ae")
                     ?.name.split("")?.[0]
@@ -151,27 +143,28 @@ export const List = () => {
             <p
               style={{
                 overflow: "hidden",
-                height: 50,
+                // height: 50,
                 width: "90%",
+                fontWeight: chatroom?.hasUnread ? 'bold' : 'lighter'
               }}
             >
               {chatroom?.message}
             </p>
-            <div
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: "100%",
-                backgroundColor: "#0078d7",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              2
-            </div>
+            {chatroom?.hasUnread && (
+              <div
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: "100%",
+                  backgroundColor: "red",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              />
+            )}
           </div>
         </div>
       ))}
