@@ -1,6 +1,13 @@
-import { IoLogOut } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5"
+import { useNavigate } from "react-router"
 
 export const SystemHeader = () => {
+  const navigate = useNavigate()
+
+  const userlogout = () => {
+    localStorage.removeItem("token")
+    navigate("/")
+  }
   return (
     <div
       style={{
@@ -18,7 +25,7 @@ export const SystemHeader = () => {
       }}
     >
       <div>LOGO</div>
-      <IoLogOut fontSize={30} cursor={"pointer"} />
+      <IoLogOut fontSize={30} cursor={"pointer"} onClick={userlogout} />
     </div>
-  );
-};
+  )
+}
